@@ -1,8 +1,9 @@
-import React from "react";
+import {React, useState} from "react";
 import './ProductsRegister.css'
 import {Button, Form} from 'react-bootstrap'
 
 const Register = () => {
+
 
   return(
     <div className="PR d-flex p-2">
