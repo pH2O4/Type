@@ -3,6 +3,9 @@ const express = require('express')
 const cors = require("cors")
 const { PrismaClient } = require('@prisma/client')
 const bcrypt = require('bcrypt')
+require('dotenv').config({path: __dirname + '/.env'});
+const jwt = require('jsonwebtoken');
+const { send } = require('express/lib/response');
 
 const prisma = new PrismaClient()
 router.use(cors())
@@ -57,20 +60,23 @@ router.post('/Login', async (req, res, next) => {
   console.log(EMAILPRO)
 
   if (EMAILPRO == null) {
-    res.send("Você não tem cadastro")
+    res.send("You are not register")
 
   } else if (EMAILPRO != null) {
     const TruePasss = EMAILPRO.Senha
-try {
   if(await bcrypt.compare(pass, TruePasss)){
-    res.send("Você logou com suceso")
+
+   const IDFORJWT = EMAILPRO.Id
+    const token = jwt.sign({ IDFORJWT }, process.env.SECRET, {
+      expiresIn: 30000
+      
+    });
+    res.json({ auth: true, token: token });
   }else{
-    res.send("nao deu certo")
+    res.send("Icorrect Password")
   }
 
-} catch (error) {
-  
-}
+
   
 
 

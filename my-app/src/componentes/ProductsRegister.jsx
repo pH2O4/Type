@@ -15,8 +15,8 @@ const Register = () => {
   </Form.Group>
 
   <Form.Group className="mb-3" controlId="formBasicClass">
-  <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-  <option selected>Select Class</option>
+  <select className="form-select form-select-sm" aria-label=".form-select-sm example">
+  <option value>Select Class</option>
   <option value="1">One</option>
   <option value="2">Two</option>
   <option value="3">Other</option>
@@ -32,8 +32,8 @@ const Register = () => {
 </Form>
       </div>
 <div className="TABLE m-5">
-<table class="table">
-  <thead class="TopTable">
+<table className="table">
+  <thead className="TopTable">
     <tr>
       <th scope="col">#</th>
       <th scope="col">Products Names</th>

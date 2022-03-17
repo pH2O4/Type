@@ -18,7 +18,12 @@ const Login = () => {
        Email: valuesL.EmailL,
        Pass: valuesL.PassL,
     } ).then((response)=> {
-window.alert(`${response.data}`)
+      console.log(response.data)
+      if(response.data.auth == true){
+        window.location.href = 'http://localhost:3000/Register'
+      }else{
+        window.alert(`${response.data}`)
+      }
 
     })
   }
