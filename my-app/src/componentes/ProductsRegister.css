@@ -5,3 +5,16 @@ border-radius: 10px;
 background: linear-gradient(90deg, rgb(102, 99, 167) 0%, rgb(85, 85, 206) 16%, rgba(0,212,255,1) 100%);
 box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 }
+
+.NavBarx{
+  background-color:rgb(0, 0, 0);
+  border-radius: 10px;
+  text-align: center;
+  background: linear-gradient(90deg, rgba(83,84,78,1) 0%, rgba(3,3,3,1) 50%,  rgb(102, 99, 167) 100%);
+  box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+
+}
+
+.nav-link{
+  margin-top: 45px
+}

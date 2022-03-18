@@ -5,7 +5,7 @@ const { PrismaClient } = require('@prisma/client')
 const bcrypt = require('bcrypt')
 require('dotenv').config({ path: __dirname + '/.env' });
 const jwt = require('jsonwebtoken');
-const { send } = require('express/lib/response');
+
 
 const prisma = new PrismaClient()
 router.use(cors())
@@ -57,7 +57,6 @@ router.post('/Login', async (req, res, next) => {
     },
   })
 
-  console.log(EMAILPRO)
 
   if (EMAILPRO == null) {
     res.send("You are not register")
@@ -78,10 +77,24 @@ router.post('/Login', async (req, res, next) => {
 
   }
 
-
-
-
-
-
 });
+
+router.post('/Auth', async (req, res, next) => {
+    const token = req.headers['x-access-token'];
+    if (!token) return res.json({ auth: false, message: 'No token provided.' });
+
+    jwt.verify(token, process.env.SECRET, function(err, decoded) {
+      if (err) return res.json({ auth: false, message: 'Failed to authenticate token.' });
+
+      req.userId = decoded.id;
+      next();
+    });
+
+})
+
+router.get('/lgoff', async (req, res, next) => {
+  res.json({ auth: false, token: null });
+})
+
+
 module.exports = router;
