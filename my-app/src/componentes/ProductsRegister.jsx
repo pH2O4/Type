@@ -1,13 +1,27 @@
 import {React, useState} from "react";
 import './ProductsRegister.css'
 import {Button, Form} from 'react-bootstrap'
+import  Axios  from "axios";
 
 const Register = () => {
+
+window.onload(CHECKIFAUTH())
+
+const CHECKIFAUTH = () => {
+  Axios.post( 'http://localhost:3002/api/Login',{
+
+ } ).then((response)=> {
+   console.log(response.data)
+window.alert(`${response.data}`)
+
+ })
+}
+
 
 
   return(
     <div className="PR d-flex p-2">
-      <div d-flex flex-column align-items-start> 
+      <div > 
       <Form className= " FORRM  m-5">
   <Form.Group className="mb-3" controlId="formBasicName">
     <Form.Label>Sent The Produtcs Informations</Form.Label>

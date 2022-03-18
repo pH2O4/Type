@@ -3,7 +3,7 @@ const express = require('express')
 const cors = require("cors")
 const { PrismaClient } = require('@prisma/client')
 const bcrypt = require('bcrypt')
-require('dotenv').config({path: __dirname + '/.env'});
+require('dotenv').config({ path: __dirname + '/.env' });
 const jwt = require('jsonwebtoken');
 const { send } = require('express/lib/response');
 
@@ -64,23 +64,17 @@ router.post('/Login', async (req, res, next) => {
 
   } else if (EMAILPRO != null) {
     const TruePasss = EMAILPRO.Senha
-  if(await bcrypt.compare(pass, TruePasss)){
+    if (await bcrypt.compare(pass, TruePasss)) {
 
-   const IDFORJWT = EMAILPRO.Id
-    const token = jwt.sign({ IDFORJWT }, process.env.SECRET, {
-      expiresIn: 30000
-      
-    });
-    res.json({ auth: true, token: token });
-  }else{
-    res.send("Icorrect Password")
-  }
+      const IDFORJWT = EMAILPRO.Id
+      const token = jwt.sign({ IDFORJWT }, process.env.SECRET, {
+        expiresIn: 30000
 
-
-  
-
-
-    
+      });
+      res.json({ auth: true, token: token });
+    } else {
+      res.send("Icorrect Password")
+    }
 
   }
 
