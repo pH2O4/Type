@@ -11,23 +11,23 @@ const Register = () => {
   $(window).on("load", function(){
 
       Axios.post( 'http://localhost:3002/api/Auth',{
-        headers: {
-          token: ['x-access-token']
-        },
+      TOKENX: localStorage.token
+
      } ).then((response)=> {
 
     window.alert(`${response.data.message}`)
 
      })
 
- });
+ })
 
   const Logoff = () =>{
-    Axios.get('http://localhost:3002/api/lgoff',{
+    Axios.post('http://localhost:3002/api/lgoff',{
 
     } ).then((response)=> {
       console.log(response.data)
- if(response.data == "tokenInvd"){
+ if(response.data.auth == false){
+   localStorage.clear()
   window.location.href = 'http://localhost:3000/'
  }
 

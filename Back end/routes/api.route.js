@@ -70,7 +70,7 @@ router.post('/Login', async (req, res, next) => {
         expiresIn: 30000
 
       });
-      res.json({ auth: true, token: token });
+    res.json({ auth: true, token: token });
     } else {
       res.send("Icorrect Password")
     }
@@ -80,7 +80,7 @@ router.post('/Login', async (req, res, next) => {
 });
 
 router.post('/Auth', async (req, res, next) => {
-    const token = req.headers['x-access-token'];
+    const token = req.body.TOKENX;
     if (!token) return res.json({ auth: false, message: 'No token provided.' });
 
     jwt.verify(token, process.env.SECRET, function(err, decoded) {
@@ -92,7 +92,7 @@ router.post('/Auth', async (req, res, next) => {
 
 })
 
-router.get('/lgoff', async (req, res, next) => {
+router.post('/lgoff', async (req, res, next) => {
   res.json({ auth: false, token: null });
 })
 
