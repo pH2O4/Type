@@ -85,7 +85,7 @@ router.post('/Auth', async (req, res, next) => {
 
     jwt.verify(token, process.env.SECRET, function(err, decoded) {
       if (err) return res.json({ auth: false, message: 'Failed to authenticate token.' });
-
+res.send('ok')
       req.userId = decoded.id;
       next();
     });
@@ -95,6 +95,32 @@ router.post('/Auth', async (req, res, next) => {
 router.post('/lgoff', async (req, res, next) => {
   res.json({ auth: false, token: null });
 })
+
+
+router.post('/ReciveProductsRoute', async (req, res, next) => {
+  const produto = req.body.ProductN
+  const classiD = req.body.ClassP
+  const amount = req.body.AmountP
+  const amountconvert = parseInt(amount)
+  const classiDconvert = parseInt(classiD)
+
+  const produtos = await prisma.produtos.create({
+    data: {
+      NameProduct: produto,
+      Amount: amountconvert,
+      classId: classiDconvert,
+
+    }
+  })
+if(produtos){
+  res.send('Criado com sucesso')
+}else{
+  res.send('ocorreu um erro')
+}
+
+})
+
+
 
 
 module.exports = router;

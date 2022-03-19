@@ -14,7 +14,7 @@ const Cadastro = () => {
   };
 
   const Registerx = () =>{
-    Axios.post('http://localhost:3002/api/Criarusuario',{
+    Axios.post('http://localhost:3005/api/Criarusuario',{
        Email: values.Email,
        Name: values.FullName,
        Number: values.Number,
@@ -51,9 +51,7 @@ if(response.data == "Parabéns sua conta foi criada! estamos te encaminhando par
     <Form.Label>Repeat</Form.Label>
     <Form.Control name="PassR" onChange={ChangingValue}  type="password" placeholder="Repeat Password" />
   </Form.Group>
-  <Form.Group className="mb-3" controlId="formBasicCheckbox">
-    <Form.Check type="checkbox" onChange={ChangingValue}  label="Remember-me" />
-  </Form.Group>
+
   <Button onClick={() => Registerx()} variant="primary">
     Submit
   </Button>

@@ -11,9 +11,25 @@ datasource db {
 }
 
 model Usuarios {
-  Id    Int    @default(autoincrement())
-  Name  String
-  Email String @unique
-  Contato String 
-  Senha String @default("123")
+  Id      Int    @default(autoincrement())
+  Name    String
+  Email   String @unique
+  Contato String
+  Senha   String @default("123")
+}
+
+model produtos {
+  Id          Int      @id @default(autoincrement())
+  NameProduct String   @unique
+  Amount      Int      @default(1)
+  createdAt   DateTime @default(now())
+  class       Class   @relation(fields: [classId], references: [id])
+  classId     Int
+}
+
+model Class {
+  id       Int        @id @default(autoincrement())
+  Name     String     @unique
+  Produtos produtos[]
+
 }

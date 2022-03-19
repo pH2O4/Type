@@ -14,13 +14,13 @@ const Login = () => {
   };
 
   const Login = () =>{
-    Axios.post('http://localhost:3002/api/Login',{
+    Axios.post('http://localhost:3005/api/Login',{
        Email: valuesL.EmailL,
        Pass: valuesL.PassL,
     } ).then((response)=> {
       if(response.data.auth == true){
         localStorage.setItem('token', response.data.token)
-        window.location.href = 'http://localhost:3000/Register'
+        window.location.href = 'http://localhost:3000/Main'
       }else{
         window.alert(`${response.data}`)
         console.log(response.data)
