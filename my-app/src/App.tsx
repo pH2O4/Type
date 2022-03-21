@@ -18,7 +18,7 @@ function App() {
       <Route path="/Cadastro" element={<Cadastro/>} />
     </Routes>
     </div>
-    
+
   );
 }
 

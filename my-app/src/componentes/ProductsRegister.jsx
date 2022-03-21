@@ -21,7 +21,7 @@ const getingClassCretead = () => {
 Axios.get('http://localhost:3005/api/GetAllCalass',{
 
 }).then((response) => {
-console.log(response.data)
+
 const localSTORAGE = localStorage.getItem('checkBeforeDoo')
 const idC = response.data
 if(localSTORAGE == 'false'){
@@ -32,8 +32,19 @@ if(localSTORAGE == 'false'){
 
 }
 localStorage.setItem('checkBeforeDoo', true)
+
 })
 }
+
+
+function Mudarestado() {
+  const display = document.getElementById("CreatingNewCLasss").style.display;
+  if(display == "none")
+      document.getElementById("CreatingNewCLasss").style.display = 'block';
+  else
+      document.getElementById("CreatingNewCLasss").style.display = 'none';
+}
+
 
 const Registring = () => {
   Axios.post( 'http://localhost:3005/api/ReciveProductsRoute',{
@@ -43,17 +54,22 @@ const Registring = () => {
 
   } ).then((response) => {
     window.alert(`${response.data}`)
-
+    window.location.href = 'http://localhost:3000/Register'
   })
 }
 
+const mousemovee = () => {
+
+}
+const mouseout = () => {
+
+}
 window.onload = () => {
   localStorage.setItem('checkBeforeDoo', false)
     Axios.get('http://localhost:3005/api/GettingAllProducts', {
     }).then((response) => {
 
   const idP = response.data
-  console.log(idP)
 if(idP){
   for (let i = 0; i < idP.length; i++) {
  const separandoP = idP[i]
@@ -97,14 +113,17 @@ if(response.data.auth == false){
     })
   }
 
+ const mousemove = () => {
+console.log("saksak")
+ }
+
   return(
     <div className="PR d-flex p-5">
       <div className="NavBarx">
       <nav className="nav flex-column ">
-  <a className="nav-link active" href="#"><FontAwesomeIcon icon={faUser}/></a>
-  <a className="nav-link" href="#"><FontAwesomeIcon icon={faScrewdriverWrench}/></a>
-  <a className="nav-link" href="#"><FontAwesomeIcon icon={faPlusCircle}/></a>
-  <a className="nav-link active" onClick={() => Logoff()}><FontAwesomeIcon icon={faArrowRightFromBracket}/></a>
+  <a className="KK nav-link active" href="#"><FontAwesomeIcon icon={faUser}/></a>
+  <a className="KK nav-link" href="#"><FontAwesomeIcon icon={faScrewdriverWrench}/></a>
+  <a className="KK nav-link active" onClick={() => Logoff()}><FontAwesomeIcon icon={faArrowRightFromBracket}/></a>
 </nav>
       </div>
       <div >
@@ -114,15 +133,26 @@ if(response.data.auth == false){
     <Form.Control onChange={ ChangingValueP} name="productname" type="text" placeholder="Products Name" />
   </Form.Group>
 
-  <Form.Group className="mb-3" controlId="formBasicClass">
+  <Form.Group id="OPTIONCLASSFORM" className="mb-1" controlId="formBasicClass">
   <select id="inputOptions" onClick={() => getingClassCretead()} name="ClassP"  onChange={ ChangingValueP} className="form-select form-select-sm" aria-label=".form-select-sm example">
   <option value>Select Class</option>
-  <option value>Create a New CLass</option>
 </select>
   </Form.Group>
+  <a onMouseOver={() =>mousemovee()} onMouseLeave={() => mouseout()} onClick={() => Mudarestado()} id="ADDNEWCLASXY"className="nav-link" href="#"><FontAwesomeIcon icon={faPlusCircle}/><b> Clik For New Class</b> </a>
   <Form.Group className="mb-3" controlId="formBasicCheckbox">
   <Form.Control name="AmountP" onChange={ ChangingValueP} type="Number" placeholder="Amount" />
   </Form.Group>
+
+  <Button onClick={() => Registring ()} variant="primary">
+    Register
+  </Button>
+</Form>
+<Form id="CreatingNewCLasss" className= " FORRM m-5">
+  <Form.Group  className="mb-3" controlId="formBasiC">
+    <Form.Label>Sent A New Class</Form.Label>
+    <Form.Control onChange={ ChangingValueP} name="NewCLassName" type="text" placeholder="Class Name" />
+  </Form.Group>
+
 
   <Button onClick={() => Registring ()} variant="primary">
     Register
