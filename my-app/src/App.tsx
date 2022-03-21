@@ -6,6 +6,7 @@ import {Routes, Route} from 'react-router-dom'
 import Cadastro from './componentes/Cadastro'
 import Login from './componentes/login'
 import Main from './componentes/Main'
+import Users from './componentes/Users'
 import ProductsRegister from './componentes/ProductsRegister'
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
       <Route path="/Main" element={<Main firtButton="Products Register" secondButton="Shearch Products" />} />
       <Route path="/Register" element={<ProductsRegister/>} />
       <Route path="/Cadastro" element={<Cadastro/>} />
+      <Route path="/Users" element={<Users/>} />
     </Routes>
     </div>
 

@@ -121,7 +121,7 @@ console.log("saksak")
     <div className="PR d-flex p-5">
       <div className="NavBarx">
       <nav className="nav flex-column ">
-  <a className="KK nav-link active" href="#"><FontAwesomeIcon icon={faUser}/></a>
+  <a className="KK nav-link active" href="/Users"><FontAwesomeIcon icon={faUser}/></a>
   <a className="KK nav-link" href="#"><FontAwesomeIcon icon={faScrewdriverWrench}/></a>
   <a className="KK nav-link active" onClick={() => Logoff()}><FontAwesomeIcon icon={faArrowRightFromBracket}/></a>
 </nav>
