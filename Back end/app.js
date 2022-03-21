@@ -1,7 +1,7 @@
 const express = require('express');
 const createError = require('http-errors');
 const morgan = require('morgan');
-const cors = require("cors")
+const cors = require('cors')
 require('dotenv').config();
 
 const app = express();

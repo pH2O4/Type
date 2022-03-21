@@ -1,5 +1,5 @@
 .MainContent{
-  margin-top: 200px;
+  margin-top: 10px;
   box-shadow: 0px 0px 10px;
   border-radius: 9px;
   padding: 80px;
@@ -8,3 +8,6 @@
   background: linear-gradient(90deg, rgb(102, 99, 167) 0%, rgb(85, 85, 206) 16%, rgba(0,212,255,1) 100%);
 }
 
+.MAIN{
+  height: 100vh;
+}

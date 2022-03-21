@@ -2,7 +2,7 @@ import {React, useState} from "react";
 import './ProductsRegister.css'
 import {Button, Form, Navbar, Nav, Container} from 'react-bootstrap'
 import  Axios  from "axios";
-import $ from 'jquery'
+import $ from "jquery"
 import {faUser, faArrowRightFromBracket, faScrewdriverWrench, faPlusCircle} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
@@ -16,6 +16,25 @@ const Register = () => {
     }));
   };
 
+
+const getingClassCretead = () => {
+Axios.get('http://localhost:3005/api/GetAllCalass',{
+
+}).then((response) => {
+console.log(response.data)
+const localSTORAGE = localStorage.getItem('checkBeforeDoo')
+const idC = response.data
+if(localSTORAGE == 'false'){
+  for (let i = 0; i < idC.length; i++) {
+ const separandoC = idC[i]
+ document.getElementById("inputOptions").insertAdjacentHTML('beforeend', `<option value="${separandoC.id}">${separandoC.Name}</option>`)
+}
+
+}
+localStorage.setItem('checkBeforeDoo', true)
+})
+}
+
 const Registring = () => {
   Axios.post( 'http://localhost:3005/api/ReciveProductsRoute',{
     ClassP: valuesP.ClassP,
@@ -24,15 +43,38 @@ const Registring = () => {
 
   } ).then((response) => {
     window.alert(`${response.data}`)
+
   })
 }
 
-  $(window).on("load", function(){
+window.onload = () => {
+  localStorage.setItem('checkBeforeDoo', false)
+    Axios.get('http://localhost:3005/api/GettingAllProducts', {
+    }).then((response) => {
+
+  const idP = response.data
+  console.log(idP)
+if(idP){
+  for (let i = 0; i < idP.length; i++) {
+ const separandoP = idP[i]
+ document.getElementById("Tableboddyy").insertAdjacentHTML('beforeend',
+ `    <tr>
+ <td>${separandoP.Id}</td>
+ <td>${separandoP.NameProduct}</td>
+ <td>${separandoP.Amount}</td>
+ <td>${separandoP.createdAt}</td>
+</tr>`)
+}
+
+}
+
+    })
 
       Axios.post( 'http://localhost:3005/api/Auth',{
       TOKENX: localStorage.token
 
      } ).then((response)=> {
+
 if(response.data.auth == false){
       window.alert(`${response.data.message}`)
     window.location.href = 'http://localhost:3000/'
@@ -41,13 +83,12 @@ if(response.data.auth == false){
 
      })
 
- })
+ }
 
   const Logoff = () =>{
     Axios.post('http://localhost:3005/api/lgoff',{
 
     } ).then((response)=> {
-      console.log(response.data)
  if(response.data.auth == false){
    localStorage.clear()
   window.location.href = 'http://localhost:3000/'
@@ -74,11 +115,9 @@ if(response.data.auth == false){
   </Form.Group>
 
   <Form.Group className="mb-3" controlId="formBasicClass">
-  <select name="ClassP"  onChange={ ChangingValueP} className="form-select form-select-sm" aria-label=".form-select-sm example">
+  <select id="inputOptions" onClick={() => getingClassCretead()} name="ClassP"  onChange={ ChangingValueP} className="form-select form-select-sm" aria-label=".form-select-sm example">
   <option value>Select Class</option>
-  <option value="1">One</option>
-  <option value="2">Two</option>
-  <option value="3">Other</option>
+  <option value>Create a New CLass</option>
 </select>
   </Form.Group>
   <Form.Group className="mb-3" controlId="formBasicCheckbox">
@@ -94,25 +133,14 @@ if(response.data.auth == false){
 <table className="table">
   <thead className="TopTable">
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">Products Names</th>
-      <th scope="col">Class</th>
+      <th scope="col">iD</th>
+      <th scope="col">Products Name</th>
       <th scope="col">Amount</th>
+      <th scope="col">Date Creation</th>
     </tr>
   </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
+  <tbody id="Tableboddyy">
+
 
   </tbody>
 </table>

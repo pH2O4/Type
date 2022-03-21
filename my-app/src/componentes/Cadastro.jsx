@@ -30,8 +30,8 @@ if(response.data == "Parabéns sua conta foi criada! estamos te encaminhando par
 
   return(
 <div className="Cadastro d-flex justify-content-center ">
-<Form className="FORMC">
-  <Form.Group className="mb-2  " controlId="formBasicEmailC">
+<Form className="FORMC p-3">
+  <Form.Group className=" " controlId="formBasicEmailC">
     <Form.Label>Email address</Form.Label>
     <Form.Control name="Email" onChange={ChangingValue}  type="email" placeholder="Enter email" />
   </Form.Group>

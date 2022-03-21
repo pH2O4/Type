@@ -8,7 +8,7 @@ import Axios from 'axios';
 const Main = (props) => {
 
 
-  $(window).on("load", function () {
+  window.onload = () => {
 
     Axios.post('http://localhost:3005/api/Auth', {
       TOKENX: localStorage.token
@@ -22,7 +22,7 @@ const Main = (props) => {
 
     })
 
-  })
+  }
 
   return (
     <div className=" MAIN d-flex justify-content-center">

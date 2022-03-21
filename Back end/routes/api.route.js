@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const express = require('express')
-const cors = require("cors")
+const cors = require('cors')
 const { PrismaClient } = require('@prisma/client')
 const bcrypt = require('bcrypt')
 require('dotenv').config({ path: __dirname + '/.env' });
@@ -11,6 +11,16 @@ const prisma = new PrismaClient()
 router.use(cors())
 router.use(express.json())
 
+router.get('/GetAllCalass', async(req, res, next) => {
+  const allClass = await prisma.Class.findMany({})
+  res.json(allClass)
+})
+
+
+router.get('/GetAllCalass', async(req, res, next) => {
+  const allClass = await prisma.Class.findMany({})
+  res.json(allClass)
+})
 
 router.post('/Criarusuario', async (req, res, next) => {
 
@@ -78,6 +88,12 @@ router.post('/Login', async (req, res, next) => {
   }
 
 });
+
+
+router.get('/GettingAllProducts', async(req, res, next) => {
+  const allProducts = await prisma.produtos.findMany({})
+  res.json(allProducts)
+})
 
 router.post('/Auth', async (req, res, next) => {
     const token = req.body.TOKENX;
