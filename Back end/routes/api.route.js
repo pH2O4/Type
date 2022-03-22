@@ -118,13 +118,18 @@ router.post('/ReciveProductsRoute', async (req, res, next) => {
   const classiD = req.body.ClassP
   const amount = req.body.AmountP
   const amountconvert = parseInt(amount)
-  const classiDconvert = parseInt(classiD)
+  if(!classiD ) {
+    res.send('por favor selecione uma classe' )
+  }else if(isNaN(amountconvert)){
+    res.send("por favor informe a quantidade")
+  }else {
 
-  const produtos = await prisma.produtos.create({
+    try {
+        const produtos = await prisma.produtos.create({
     data: {
       NameProduct: produto,
       Amount: amountconvert,
-      classId: classiDconvert,
+      className: classiD,
 
     }
   })
@@ -133,10 +138,40 @@ if(produtos){
 }else{
   res.send('ocorreu um erro')
 }
+    } catch (error) {
+      const uptadeProduct = await prisma.produtos.findUnique({
+        where: {
+          NameProduct: produto,
+        },
+      })
 
+      const ActualValue = uptadeProduct.Amount
+      const updateUser = await prisma.produtos.update({
+        where: {
+          NameProduct  : produto,
+        },
+        data: {
+          Amount  : ActualValue + amountconvert,
+        },
+      })
+      res.send('Identificamos que seu produto já existia e atualizamos os dados')
+    }
+
+ }
 })
 
-
+router.post('/CheckingTheCLass', async(req, res, next) => {
+  const productClass = req.body.Product
+  const allProductsxy = await prisma.produtos.findUnique({
+    where: {
+      NameProduct:  productClass,
+    },
+  })
+  if(allProductsxy){
+    res.send(allProductsxy.classId)
+  }
+  console.log(allProductsxy)
+})
 
 
 module.exports = router;

@@ -21,21 +21,32 @@ const getingClassCretead = () => {
 Axios.get('http://localhost:3005/api/GetAllCalass',{
 
 }).then((response) => {
-
 const localSTORAGE = localStorage.getItem('checkBeforeDoo')
 const idC = response.data
 if(localSTORAGE == 'false'){
   for (let i = 0; i < idC.length; i++) {
  const separandoC = idC[i]
- document.getElementById("inputOptions").insertAdjacentHTML('beforeend', `<option value="${separandoC.id}">${separandoC.Name}</option>`)
+ document.getElementById("inputOptions").insertAdjacentHTML('beforeend', `<option value="${separandoC.Name}">${separandoC.Name}</option>`)
 }
 
 }
 localStorage.setItem('checkBeforeDoo', true)
 
+
 })
 }
 
+
+const checkIfAllReadyHaveClass = () =>{
+Axios.post('http://localhost:3005/api/CheckingTheCLass' , {
+  Product: valuesP.productname,
+}).then((response) => {
+  console.log(response.data)
+  let inputbyid = document.querySelector("#inputOptions");
+  inputbyid.disabled = true
+})
+
+}
 
 function Mudarestado() {
   const display = document.getElementById("CreatingNewCLasss").style.display;
@@ -54,37 +65,63 @@ const Registring = () => {
 
   } ).then((response) => {
     window.alert(`${response.data}`)
-    window.location.href = 'http://localhost:3000/Register'
+   // window.location.href = 'http://localhost:3000/'
+   chargingItens('RestringOption')
   })
 }
 
-const mousemovee = () => {
+const chargingItens = (LOADOPTION) => {
+if(LOADOPTION == 'windowOPTION') {
+ Axios.get('http://localhost:3005/api/GettingAllProducts', {
+  }).then((response) => {
 
-}
-const mouseout = () => {
-
-}
-window.onload = () => {
-  localStorage.setItem('checkBeforeDoo', false)
-    Axios.get('http://localhost:3005/api/GettingAllProducts', {
-    }).then((response) => {
-
-  const idP = response.data
+const idP = response.data
 if(idP){
-  for (let i = 0; i < idP.length; i++) {
- const separandoP = idP[i]
- document.getElementById("Tableboddyy").insertAdjacentHTML('beforeend',
- `    <tr>
- <td>${separandoP.Id}</td>
- <td>${separandoP.NameProduct}</td>
- <td>${separandoP.Amount}</td>
- <td>${separandoP.createdAt}</td>
+for (let i = 0; i < idP.length; i++) {
+const separandoP = idP[i]
+document.getElementById("Tableboddyy").insertAdjacentHTML('beforeend',
+`    <tr>
+<td>${separandoP.Id}</td>
+<td>${separandoP.NameProduct}</td>
+<td>${separandoP.Amount}</td>
+<td>${separandoP.className}</td>
+<td>${separandoP.createdAt}</td>
 </tr>`)
 }
 
 }
 
-    })
+  })
+}else {
+  Axios.get('http://localhost:3005/api/GettingAllProducts', {
+  }).then((response) => {
+
+const idP = response.data
+if(idP){
+
+const separandoP = idP.pop()
+document.getElementById("Tableboddyy").insertAdjacentHTML('beforeend',
+`    <tr>
+<td>${separandoP.Id}</td>
+<td>${separandoP.NameProduct}</td>
+<td>${separandoP.Amount}</td>
+<td>${separandoP.className}</td>
+<td>${separandoP.createdAt}</td>
+</tr>`)
+
+
+}
+
+  })
+}
+
+}
+
+window.onload = () => {
+
+ localStorage.setItem('checkBeforeDoo', false)
+
+ chargingItens('windowOPTION')
 
       Axios.post( 'http://localhost:3005/api/Auth',{
       TOKENX: localStorage.token
@@ -113,9 +150,6 @@ if(response.data.auth == false){
     })
   }
 
- const mousemove = () => {
-console.log("saksak")
- }
 
   return(
     <div className="PR d-flex p-5">
@@ -130,7 +164,7 @@ console.log("saksak")
       <Form className= " FORRM  m-5">
   <Form.Group className="mb-3" controlId="formBasicName">
     <Form.Label>Sent The Produtcs Informations</Form.Label>
-    <Form.Control onChange={ ChangingValueP} name="productname" type="text" placeholder="Products Name" />
+    <Form.Control onBlur={() => checkIfAllReadyHaveClass()} onChange={ ChangingValueP} name="productname"  type="text" placeholder="Products Name" />
   </Form.Group>
 
   <Form.Group id="OPTIONCLASSFORM" className="mb-1" controlId="formBasicClass">
@@ -138,7 +172,7 @@ console.log("saksak")
   <option value>Select Class</option>
 </select>
   </Form.Group>
-  <a onMouseOver={() =>mousemovee()} onMouseLeave={() => mouseout()} onClick={() => Mudarestado()} id="ADDNEWCLASXY"className="nav-link" href="#"><FontAwesomeIcon icon={faPlusCircle}/><b> Clik For New Class</b> </a>
+  <a  onClick={() => Mudarestado()} id="ADDNEWCLASXY"className="nav-link"><FontAwesomeIcon icon={faPlusCircle}/><b> Clik For New Class</b> </a>
   <Form.Group className="mb-3" controlId="formBasicCheckbox">
   <Form.Control name="AmountP" onChange={ ChangingValueP} type="Number" placeholder="Amount" />
   </Form.Group>
@@ -154,7 +188,7 @@ console.log("saksak")
   </Form.Group>
 
 
-  <Button onClick={() => Registring ()} variant="primary">
+  <Button onClick={() => Registring () } variant="primary">
     Register
   </Button>
 </Form>
@@ -163,9 +197,10 @@ console.log("saksak")
 <table className="table">
   <thead className="TopTable">
     <tr>
-      <th scope="col">iD</th>
+      <th scope="col">Código do Produto</th>
       <th scope="col">Products Name</th>
       <th scope="col">Amount</th>
+      <th scope="col">Class</th>
       <th scope="col">Date Creation</th>
     </tr>
   </thead>

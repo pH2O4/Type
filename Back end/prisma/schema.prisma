@@ -23,8 +23,8 @@ model produtos {
   NameProduct String   @unique
   Amount      Int      @default(1)
   createdAt   DateTime @default(now())
-  class       Class   @relation(fields: [classId], references: [id])
-  classId     Int
+  class       Class   @relation(fields: [className], references: [Name])
+  className   String
 }
 
 model Class {
