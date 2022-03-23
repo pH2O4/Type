@@ -20,6 +20,7 @@ const Login = () => {
     } ).then((response)=> {
       if(response.data.auth == true){
         localStorage.setItem('token', response.data.token)
+        localStorage.setItem('Email', response.data.Email)
         window.location.href = 'http://localhost:3000/Main'
       }else{
         window.alert(`${response.data}`)
@@ -28,7 +29,14 @@ const Login = () => {
 
     })
   }
+  window.onload = () => {
+if(!localStorage.token){
+}else{
 
+window.location.href = 'http://localhost:3000/Main'
+}
+
+  }
   return(
    <div className="Login d-flex justify-content-center ">
   <Form className="FORMX">
@@ -41,9 +49,6 @@ const Login = () => {
   <Form.Group className="mb-3 " controlId="formBasicPassword">
     <Form.Label>Password</Form.Label>
     <Form.Control  onChange={ ChangingValueL} name="PassL" type="password" placeholder="Password" />
-  </Form.Group>
-  <Form.Group className="mb-3" controlId="formBasicCheckbox">
-    <Form.Check type="checkbox" label="Remember-me" />
   </Form.Group>
   <Button variant="primary" onClick={() => Login()} >
     Login

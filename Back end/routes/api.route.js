@@ -80,7 +80,7 @@ router.post('/Login', async (req, res, next) => {
         expiresIn: 30000
 
       });
-    res.json({ auth: true, token: token });
+    res.json({ auth: true, token: token, Email: EMAILPRO.Email });
     } else {
       res.send("Icorrect Password")
     }
@@ -173,5 +173,14 @@ router.post('/CheckingTheCLass', async(req, res, next) => {
   console.log(allProductsxy)
 })
 
+router.post('/GetUserInformations', async(req, res, next) => {
+    const EMAILX = req.body.EmailX
+  const Userinformations = await prisma.Usuarios.findUnique({
+    where: {
+      Email: EMAILX
+    }
+  })
+  res.send(Userinformations)
+})
 
 module.exports = router;
