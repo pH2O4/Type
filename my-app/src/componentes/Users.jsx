@@ -5,26 +5,39 @@ import Axios from 'axios'
 
 const Users = () => {
 
+ const DeltingAcount = () =>{
+
+ }
+ const DeltingAcoutConfirmted = () =>{
+
+  }
   window.onload = () => {
     Axios.post('http://localhost:3005/api/GetUserInformations', {
       EmailX: localStorage.Email,
 
     }).then((response) => {
       console.log(response.data)
-const contato = response.data.Contato
-const email = response.data.Email
-const name = response.data.Name
+const contato = `<b> User Contact: </b>${response.data.Contato} `
+const email =  ` <b> User Email: </b>${response.data.Email} `
+const name = `<b> User Name: </b> ${response.data.Name} `
+document.querySelector('#NAMEUSERPAG').innerHTML =  name
+document.querySelector('#CONTATOUSERPAG').innerHTML =  contato
+document.querySelector('#EMAILUSERPAG').innerHTML =  email
     })
     }
 
   return(
     <div className="Users">
-<div>
+<div className="ajustcenter">
 <div className="UserInformation">
-<div className="UserInformationComponent">User Name:{contato}</div>
-<div className="UserInformationComponent">Contato:{email} </div>
-<div className="UserInformationComponent">Email: {name}</div>
-<div> <Button variant="primary">Delete My Count</Button></div>
+<div id="NAMEUSERPAG" className="UserInformationComponent"></div>
+<div id="CONTATOUSERPAG" className="UserInformationComponent"> </div>
+<div id="EMAILUSERPAG" className="UserInformationComponent"></div>
+<div> <Button onClick={() => DeltingAcount()} variant="primary">Delete My Count</Button></div>
+</div>
+<div className="DeleteConfirmation">
+Do you have  sure?
+<div> <Button onClick={() => DeltingAcoutConfirmted()} variant="primary">Delete My Count</Button></div>
 </div>
 </div>
     </div>
