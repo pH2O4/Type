@@ -41,12 +41,31 @@ const checkIfAllReadyHaveClass = () =>{
 Axios.post('http://localhost:3005/api/CheckingTheCLass' , {
   Product: valuesP.productname,
 }).then((response) => {
-  console.log(response.data)
-  let inputbyid = document.querySelector("#inputOptions");
-  inputbyid.disabled = true
+  if(response.data == "nothing founded"){
+      let inputbyid = document.querySelector("#inputOptions");
+  inputbyid.disabled = false
+  } else {
+    let inputbyid = document.querySelector("#inputOptions");
+    inputbyid.disabled = true
+    valuesP.ClassP = response.data
+  }
+
 })
 
 }
+
+const RegistringClass = () => {
+  Axios.post( 'http://localhost:3005/api/RegisterClass',{
+    ClassPCREATE: valuesP.NewCLassName,
+  } ).then((response) => {
+   window.alert(`${response.data}`)
+
+   chargingItens('RestringOption')
+  window.location.href = 'http://localhost:3000/Register'
+  })
+}
+
+
 
 function Mudarestado() {
   const display = document.getElementById("CreatingNewCLasss").style.display;
@@ -65,8 +84,9 @@ const Registring = () => {
 
   } ).then((response) => {
     window.alert(`${response.data}`)
-   // window.location.href = 'http://localhost:3000/'
+
    chargingItens('RestringOption')
+  window.location.href = 'http://localhost:3000/Register'
   })
 }
 
@@ -109,7 +129,6 @@ document.getElementById("Tableboddyy").insertAdjacentHTML('beforeend',
 <td>${separandoP.createdAt}</td>
 </tr>`)
 
-
 }
 
   })
@@ -150,7 +169,9 @@ if(response.data.auth == false){
     })
   }
 
-
+const HiddenContentCR = () => {
+  document.getElementById("CreatingNewCLasss").style.display = 'none';
+}
   return(
     <div className="PR d-flex p-5">
       <div className="NavBarx">
@@ -180,16 +201,19 @@ if(response.data.auth == false){
   <Button onClick={() => Registring ()} variant="primary">
     Register
   </Button>
-</Form>
+</Form >
 <Form id="CreatingNewCLasss" className= " FORRM m-5">
   <Form.Group  className="mb-3" controlId="formBasiC">
     <Form.Label>Sent A New Class</Form.Label>
-    <Form.Control onChange={ ChangingValueP} name="NewCLassName" type="text" placeholder="Class Name" />
+    <Form.Control onChange={ChangingValueP} name="NewCLassName" type="text" placeholder="Class Name" />
   </Form.Group>
 
 
-  <Button onClick={() => Registring () } variant="primary">
+  <Button onClick={() => RegistringClass () } variant="primary">
     Register
+  </Button>
+  <Button onClick={() => HiddenContentCR () } variant="danger">
+    Cancel
   </Button>
 </Form>
       </div>

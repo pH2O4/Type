@@ -21,3 +21,19 @@
   flex-direction: column;
   margin: 0px 500px;
 }
+
+.DeleteConfirmation{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.buttoncancel{
+margin-top: 7px;
+}
+
+#DeletingHidden{
+  display: none;
+}
