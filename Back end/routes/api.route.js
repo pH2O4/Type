@@ -17,8 +17,8 @@ router.get('/GetAllCalass', async (req, res, next) => {
   res.json(allClass)
 })
 
-router.delete('/DeletingUser', async (req, res, next) => {
- const EmailX = req.body.EmailX
+router.post('/DeletingUser', async (req, res, next) => {
+ const EmailX = req.body.EmailXy
   console.log(EmailX)
   const deleteuser = await prisma.Usuarios.delete({
     where: {

@@ -13,12 +13,6 @@ const Login = () => {
     }));
   };
 
- const clearStore = () => {
-  setTimeout(function(){
-   localStorage.Clear();
-},30000);
- }
-
   const LLogin = () =>{
     Axios.post('http://localhost:3005/api/Login',{
        Email: valuesL.EmailL,
@@ -28,10 +22,11 @@ const Login = () => {
         localStorage.setItem('token', response.data.token)
         localStorage.setItem('Email', response.data.Email)
         window.location.href = 'http://localhost:3000/Main'
-        clearStore()
+    //    clearStore()
       }else{
         window.alert(`${response.data}`)
         console.log(response.data)
+
       }
 
     })

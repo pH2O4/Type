@@ -16,6 +16,7 @@ const Main = (props) => {
     }).then((response) => {
       if (response.data.auth == false) {
         window.alert(`${response.data.message}`)
+        localStorage.clear()
         window.location.href = 'http://localhost:3000/'
       }
       console.log(response.data)

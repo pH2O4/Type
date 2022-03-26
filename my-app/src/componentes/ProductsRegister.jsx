@@ -3,7 +3,7 @@ import './ProductsRegister.css'
 import {Button, Form, Navbar, Nav, Container} from 'react-bootstrap'
 import  Axios  from "axios";
 import $ from "jquery"
-import {faUser, faArrowRightFromBracket, faScrewdriverWrench, faPlusCircle} from '@fortawesome/free-solid-svg-icons'
+import {faUser, faArrowRightFromBracket, faScrewdriverWrench, faPlusCircle, faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
 const Register = () => {
@@ -177,7 +177,8 @@ const HiddenContentCR = () => {
       <div className="NavBarx">
       <nav className="nav flex-column ">
   <a className="KK nav-link active" href="/Users"><FontAwesomeIcon icon={faUser}/></a>
-  <a className="KK nav-link" href="#"><FontAwesomeIcon icon={faScrewdriverWrench}/></a>
+  <a className="KK nav-link"><FontAwesomeIcon icon={faScrewdriverWrench}/></a>
+  <a className="KK nav-link active" href="/searchingProducts " ><FontAwesomeIcon icon={faMagnifyingGlass}/></a>
   <a className="KK nav-link active" onClick={() => Logoff()}><FontAwesomeIcon icon={faArrowRightFromBracket}/></a>
 </nav>
       </div>
